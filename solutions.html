@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lark 解决方案 - 企业级数字协作平台</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* 解决方案页特定样式 */
+        .solutions-header {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e6eeff 100%);
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .solutions-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+        
+        .solutions-subtitle {
+            font-size: 1.25rem;
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .industry-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+        
+        .industry-tab {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+        
+        .industry-tab.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .industry-tab:hover:not(.active) {
+            background-color: rgba(51, 112, 255, 0.05);
+        }
+        
+        .solution-card {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 3rem;
+            transition: all 0.3s ease;
+        }
+        
+        .solution-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .solution-image {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+        
+        .solution-content {
+            padding: 2rem;
+        }
+        
+        .solution-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        
+        .solution-description {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .solution-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        
+        .solution-tag {
+            padding: 0.25rem 0.75rem;
+            background-color: rgba(51, 112, 255, 0.1);
+            color: var(--primary-color);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .success-story {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 2.5rem;
+            margin-top: 5rem;
+        }
+        
+        .success-story-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--text-color);
+        }
+        
+        .success-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-label {
+            font-size: 1rem;
+            color: var(--light-text);
+        }
+        
+        .quote-author {
+            display: flex;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+        
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+        
+        .author-info h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .author-info p {
+            font-size: 0.875rem;
+            color: var(--light-text);
+        }
+        
+        @media (max-width: 768px) {
+            .success-metrics {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* 行动召唤部分样式 */
+        .cta-section {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e0eaff 100%);
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+        
+        .cta-subtitle {
+            font-size: 1.25rem;
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div id="navbar-container"></div>
+    
+    <!-- 解决方案头部 -->
+    <section class="solutions-header">
+        <div class="container">
+            <h1 class="solutions-title">Lark 针对各行业的解决方案</h1>
+            <p class="solutions-subtitle">无论您的企业规模和行业，Lark 都能提供适合的协作解决方案，满足您的特定需求</p>
+            
+            <div class="industry-tabs">
+                <div class="industry-tab active">所有行业</div>
+                <div class="industry-tab">科技</div>
+                <div class="industry-tab">零售</div>
+                <div class="industry-tab">金融</div>
+                <div class="industry-tab">教育</div>
+                <div class="industry-tab">医疗</div>
+                <div class="industry-tab">制造业</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 解决方案列表 -->
+    <section class="section">
+        <div class="container">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 科技行业 -->
+                <div class="solution-card">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2344&q=80" alt="科技行业解决方案" class="solution-image">
+                    <div class="solution-content">
+                        <h3 class="solution-title">科技企业协作解决方案</h3>
+                        <div class="solution-tags">
+                            <span class="solution-tag">研发协作</span>
+                            <span class="solution-tag">敏捷开发</span>
+                            <span class="solution-tag">远程办公</span>
+                        </div>
+                        <p class="solution-description">为科技企业提供一体化协作平台，优化研发流程，支持敏捷开发，提高团队协作效率，加快产品迭代速度。</p>
+                        <a href="#" class="btn btn-secondary">了解详情</a>
+                    </div>
+                </div>
+                
+                <!-- 零售行业 -->
+                <div class="solution-card">
+                    <img src="https://images.unsplash.com/photo-1586880244406-556ebe35f282?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="零售行业解决方案" class="solution-image">
+                    <div class="solution-content">
+                        <h3 class="solution-title">零售行业协作解决方案</h3>
+                        <div class="solution-tags">
+                            <span class="solution-tag">门店管理</span>
+                            <span class="solution-tag">供应链协作</span>
+                            <span class="solution-tag">库存管理</span>
+                        </div>
+                        <p class="solution-description">帮助零售企业优化门店管理、供应链协作和库存管理，提高运营效率，提升客户体验。</p>
+                        <a href="#" class="btn btn-secondary">了解详情</a>
+                    </div>
+                </div>
+                
+                <!-- 金融行业 -->
+                <div class="solution-card">
+                    <img src="https://images.unsplash.com/photo-1559589689-577aabd1db4f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="金融行业解决方案" class="solution-image">
+                    <div class="solution-content">
+                        <h3 class="solution-title">金融行业协作解决方案</h3>
+                        <div class="solution-tags">
+                            <span class="solution-tag">合规管理</span>
+                            <span class="solution-tag">风险控制</span>
+                            <span class="solution-tag">客户服务</span>
+                        </div>
+                        <p class="solution-description">为金融机构提供安全合规的协作平台，优化内部沟通，提高风险管理效率，增强客户服务质量。</p>
+                        <a href="#" class="btn btn-secondary">了解详情</a>
+                    </div>
+                </div>
+                
+                <!-- 教育行业 -->
+                <div class="solution-card">
+                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2342&q=80" alt="教育行业解决方案" class="solution-image">
+                    <div class="solution-content">
+                        <h3 class="solution-title">教育行业协作解决方案</h3>
+                        <div class="solution-tags">
+                            <span class="solution-tag">在线教学</span>
+                            <span class="solution-tag">校园管理</span>
+                            <span class="solution-tag">学生互动</span>
+                        </div>
+                        <p class="solution-description">帮助教育机构优化教学管理、提升师生互动、简化行政流程，打造数字化智慧校园。</p>
+                        <a href="#" class="btn btn-secondary">了解详情</a>
+                    </div>
+                </div>
+                
+                <!-- 医疗行业 -->
+                <div class="solution-card">
+                    <img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="医疗行业解决方案" class="solution-image">
+                    <div class="solution-content">
+                        <h3 class="solution-title">医疗行业协作解决方案</h3>
+                        <div class="solution-tags">
+                            <span class="solution-tag">医患沟通</span>
+                            <span class="solution-tag">多学科协作</span>
+                            <span class="solution-tag">医院管理</span>
+                        </div>
+                        <p class="solution-description">为医疗机构提供安全高效的协作平台，优化医护团队沟通，提高多学科协作效率，改善医院管理。</p>
+                        <a href="#" class="btn btn-secondary">了解详情</a>
+                    </div>
+                </div>
+                
+                <!-- 制造业 -->
+                <div class="solution-card">
+                    <img src="https://images.unsplash.com/photo-1507646227500-4d389b0012be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="制造业解决方案" class="solution-image">
+                    <div class="solution-content">
+                        <h3 class="solution-title">制造业协作解决方案</h3>
+                        <div class="solution-tags">
+                            <span class="solution-tag">生产管理</span>
+                            <span class="solution-tag">质量控制</span>
+                            <span class="solution-tag">供应链协同</span>
+                        </div>
+                        <p class="solution-description">帮助制造企业优化生产管理、提高质量控制、加强供应链协同，提升整体运营效率。</p>
+                        <a href="#" class="btn btn-secondary">了解详情</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 成功案例 -->
+    <section class="section bg-light-bg">
+        <div class="container">
+            <div class="success-story">
+                <h2 class="success-story-title">客户成功案例</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-8">
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2384&q=80" alt="全球科技公司" class="rounded-lg shadow-lg">
+                    </div>
+                    
+                    <div>
+                        <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                            <p class="text-lg italic text-gray-700">
+                                <i class="fas fa-quote-left text-primary-500 opacity-30 mr-2"></i>
+                                采用 Lark 后，我们的跨国团队沟通效率提高了 40%，项目交付速度提升了 35%，同时节省了近 60% 的 IT 工具成本。Lark 的一站式协作平台彻底改变了我们的工作方式。
+                                <i class="fas fa-quote-right text-primary-500 opacity-30 ml-2"></i>
+                            </p>
+                        </div>
+                        
+                        <div class="quote-author">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&h=200&q=80" alt="John Chen" class="author-image">
+                            <div class="author-info">
+                                <h4>陈明</h4>
+                                <p>首席信息官，全球科技公司</p>
+                            </div>
+                        </div>
+                        
+                        <div class="success-metrics">
+                            <div>
+                                <div class="metric-value">40%</div>
+                                <div class="metric-label">沟通效率提升</div>
+                            </div>
+                            <div>
+                                <div class="metric-value">35%</div>
+                                <div class="metric-label">项目交付加速</div>
+                            </div>
+                            <div>
+                                <div class="metric-value">60%</div>
+                                <div class="metric-label">IT 成本节省</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 行动召唤 -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">想了解适合您企业的解决方案？</h2>
+            <p class="cta-subtitle">联系我们的行业专家，获取专属解决方案建议和演示。</p>
+            <div class="flex justify-center gap-4">
+                <a href="#" class="btn btn-primary">
+                    <i class="fas fa-headset mr-2"></i>
+                    联系解决方案专家
+                </a>
+                <a href="#" class="btn btn-secondary">
+                    <i class="fas fa-rocket mr-2"></i>
+                    免费开始试用
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <div id="footer-container"></div>
+
+    <script>
+        // 加载导航栏和页脚
+        fetch('components/navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+            });
+            
+        fetch('components/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            });
+            
+        // 行业选项卡切换
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.industry-tab');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // 在实际应用中，这里可以添加筛选逻辑
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

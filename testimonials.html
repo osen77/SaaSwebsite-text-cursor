@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lark 客户评价 - 企业级数字协作平台</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* 客户评价页特定样式 */
+        .testimonials-header {
+            background: linear-gradient(135deg, #f0f6ff 0%, #e6eeff 100%);
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .testimonials-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+        
+        .testimonials-subtitle {
+            font-size: 1.25rem;
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .client-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+        
+        .client-logo {
+            height: 40px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .client-logo:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .testimonial-content {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .testimonial-content:before {
+            content: '\201C';
+            font-size: 4rem;
+            font-family: Georgia, serif;
+            color: var(--primary-color);
+            opacity: 0.3;
+            position: absolute;
+            top: -1rem;
+            left: -1rem;
+        }
+        
+        .testimonial-text {
+            font-size: 1.125rem;
+            color: var(--text-color);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.25rem;
+        }
+        
+        .author-info p {
+            font-size: 0.875rem;
+            color: var(--light-text);
+        }
+        
+        .company-logo {
+            height: 30px;
+            margin-top: 0.5rem;
+        }
+        
+        .testimonial-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+            text-align: center;
+        }
+        
+        .metric-item {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+        
+        .metric-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-label {
+            font-size: 1.125rem;
+            color: var(--light-text);
+        }
+        
+        .case-study-section {
+            margin-top: 5rem;
+        }
+        
+        .case-study-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .case-study-image {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .case-study-image img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .case-study-content h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+        
+        .case-study-content p {
+            font-size: 1.125rem;
+            color: var(--light-text);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        
+        .success-metrics {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .success-metric {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .success-metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .success-metric-label {
+            font-size: 0.875rem;
+            color: var(--light-text);
+        }
+        
+        @media (max-width: 768px) {
+            .case-study-card {
+                grid-template-columns: 1fr;
+            }
+            
+            .success-metrics {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+        /* 行动召唤部分样式 */
+        .cta-section {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e0eaff 100%);
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+        
+        .cta-subtitle {
+            font-size: 1.25rem;
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div id="navbar-container"></div>
+    
+    <!-- 客户评价头部 -->
+    <section class="testimonials-header">
+        <div class="container">
+            <h1 class="testimonials-title">全球企业的共同选择</h1>
+            <p class="testimonials-subtitle">来自各行各业的成功企业都在使用 Lark 提升团队协作效率</p>
+            
+            <div class="client-logos">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2560px-Google_2015_logo.svg.png" alt="Google" class="client-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/2560px-Amazon_logo.svg.png" alt="Amazon" class="client-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png" alt="Netflix" class="client-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/488px-Apple_logo_black.svg.png" alt="Apple" class="client-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/2048px-Microsoft_logo.svg.png" alt="Microsoft" class="client-logo">
+            </div>
+        </div>
+    </section>
+    
+    <!-- 客户评价统计 -->
+    <section class="section">
+        <div class="container">
+            <div class="testimonial-metrics">
+                <div class="metric-item">
+                    <div class="metric-value">5000+</div>
+                    <div class="metric-label">企业用户</div>
+                </div>
+                
+                <div class="metric-item">
+                    <div class="metric-value">150+</div>
+                    <div class="metric-label">国家和地区</div>
+                </div>
+                
+                <div class="metric-item">
+                    <div class="metric-value">97%</div>
+                    <div class="metric-label">客户满意度</div>
+                </div>
+                
+                <div class="metric-item">
+                    <div class="metric-value">4.8/5</div>
+                    <div class="metric-label">应用商店评分</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 客户评价卡片 -->
+    <section class="section bg-light-bg">
+        <div class="container">
+            <div class="text-center mb-12">
+                <h2 class="section-title">客户的声音</h2>
+                <p class="section-subtitle">听听我们客户对 Lark 的真实评价</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">Lark 帮助我们实现了真正的全球化协作。多语言实时翻译功能让不同国家的团队成员无障碍沟通，提高了沟通效率，加速了我们的国际化进程。</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Sarah Johnson" class="author-avatar">
+                            <div class="author-info">
+                                <h4>李雪</h4>
+                                <p>国际业务总监，全球零售品牌</p>
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png" alt="Amazon" class="company-logo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">自从使用 Lark 以来，我们将多个工具整合到一个平台，每年节省了近 40% 的软件开支。团队成员不再需要在多个应用之间切换，工作效率显著提升。</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="David Chen" class="author-avatar">
+                            <div class="author-info">
+                                <h4>张明</h4>
+                                <p>首席信息官，科技创业公司</p>
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1280px-Google_2015_logo.svg.png" alt="Google" class="company-logo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">Lark 的文档协作功能彻底改变了我们的知识管理方式。实时协作编辑、智能目录结构和强大的搜索功能，让我们的团队知识库变得更加有序和易用。</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Emily Wang" class="author-avatar">
+                            <div class="author-info">
+                                <h4>王丽</h4>
+                                <p>知识管理总监，教育科技公司</p>
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1280px-Netflix_2015_logo.svg.png" alt="Netflix" class="company-logo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">远程工作期间，Lark 成为了我们团队的数字办公室。视频会议、文档协作、任务管理一体化，让我们的远程工作体验比在办公室还要高效。</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Michael Lee" class="author-avatar">
+                            <div class="author-info">
+                                <h4>刘强</h4>
+                                <p>团队负责人，远程工作团队</p>
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/1024px-Microsoft_logo.svg.png" alt="Microsoft" class="company-logo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 客户案例研究 -->
+    <section class="case-study-section">
+        <div class="container">
+            <div class="text-center mb-12">
+                <h2 class="section-title">客户成功案例</h2>
+                <p class="section-subtitle">深入了解企业如何通过 Lark 解决实际业务挑战</p>
+            </div>
+            
+            <div class="case-study-card">
+                <div class="case-study-image">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="全球科技公司">
+                </div>
+                
+                <div class="case-study-content">
+                    <h3>全球科技公司如何通过 Lark 实现无缝协作</h3>
+                    <p>这家拥有 15 个国家分支机构的科技公司面临着跨时区、跨语言的协作挑战。通过实施 Lark，他们成功整合了原先分散的沟通渠道，实现了全球团队的高效协作。</p>
+                    
+                    <div class="success-metrics">
+                        <div class="success-metric">
+                            <div class="success-metric-value">40%</div>
+                            <div class="success-metric-label">沟通效率提升</div>
+                        </div>
+                        <div class="success-metric">
+                            <div class="success-metric-value">35%</div>
+                            <div class="success-metric-label">项目交付加速</div>
+                        </div>
+                        <div class="success-metric">
+                            <div class="success-metric-value">60%</div>
+                            <div class="success-metric-label">IT 成本节省</div>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="btn btn-secondary">
+                        <i class="fas fa-file-alt mr-2"></i>
+                        阅读完整案例
+                    </a>
+                </div>
+            </div>
+            
+            <div class="case-study-card">
+                <div class="case-study-content">
+                    <h3>零售连锁企业如何利用 Lark 优化门店管理</h3>
+                    <p>这家拥有 200 多家门店的零售连锁企业通过 Lark 实现了总部与门店之间的高效沟通和协作，优化了库存管理和营销活动执行，提高了整体运营效率。</p>
+                    
+                    <div class="success-metrics">
+                        <div class="success-metric">
+                            <div class="success-metric-value">50%</div>
+                            <div class="success-metric-label">沟通响应时间缩短</div>
+                        </div>
+                        <div class="success-metric">
+                            <div class="success-metric-value">30%</div>
+                            <div class="success-metric-label">库存周转率提升</div>
+                        </div>
+                        <div class="success-metric">
+                            <div class="success-metric-value">25%</div>
+                            <div class="success-metric-label">营销活动执行效率提升</div>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="btn btn-secondary">
+                        <i class="fas fa-file-alt mr-2"></i>
+                        阅读完整案例
+                    </a>
+                </div>
+                
+                <div class="case-study-image">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="零售连锁企业">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 行动召唤 -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">加入全球成功企业的行列</h2>
+            <p class="cta-subtitle">开始使用 Lark，体验更高效的团队协作方式。</p>
+            <div class="flex justify-center gap-4">
+                <a href="#" class="btn btn-primary">
+                    <i class="fas fa-rocket mr-2"></i>
+                    免费试用
+                </a>
+                <a href="#" class="btn btn-secondary">
+                    <i class="fas fa-headset mr-2"></i>
+                    联系销售团队
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <div id="footer-container"></div>
+
+    <script>
+        // 加载导航栏和页脚
+        fetch('components/navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+            });
+            
+        fetch('components/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            });
+    </script>
+</body>
+</html> 

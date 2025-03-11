@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lark - 企业级数字协作平台</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js"></script>
+    <style>
+        .header {
+            background-color: var(--dark-bg);
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--light-text);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .header p {
+            font-size: 1.25rem;
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+    <div class="header">
+        <div class="container">
+            <h1>Lark 企业级协作平台 - 原型展示</h1>
+            <p>以下是Lark企业级数字协作平台的各个界面原型展示，所有界面采用现代UI设计，符合真实Web设计规范。</p>
+        </div>
+    </div>
+
+    <div class="container prototype-container">
+        <div class="prototype-item">
+            <div class="prototype-title text-gray-200">首页 (Home)</div>
+            <iframe src="home.html" class="prototype-frame"></iframe>
+        </div>
+        
+        <div class="prototype-item">
+            <div class="prototype-title text-gray-200">功能介绍 (Features)</div>
+            <iframe src="features.html" class="prototype-frame"></iframe>
+        </div>
+        
+        <div class="prototype-item">
+            <div class="prototype-title text-gray-200">解决方案 (Solutions)</div>
+            <iframe src="solutions.html" class="prototype-frame"></iframe>
+        </div>
+        
+        <div class="prototype-item">
+            <div class="prototype-title text-gray-200">定价方案 (Pricing)</div>
+            <iframe src="pricing.html" class="prototype-frame"></iframe>
+        </div>
+        
+        <div class="prototype-item">
+            <div class="prototype-title text-gray-200">客户评价 (Testimonials)</div>
+            <iframe src="testimonials.html" class="prototype-frame"></iframe>
+        </div>
+        
+        <div class="prototype-item">
+            <div class="prototype-title text-gray-200">竞品对比 (Comparison)</div>
+            <iframe src="comparison.html" class="prototype-frame"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // 等待所有iframe加载完成
+        window.addEventListener('load', function() {
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                iframe.addEventListener('load', function() {
+                    this.style.opacity = 1;
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

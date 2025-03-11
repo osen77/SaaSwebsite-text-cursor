@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lark - 企业级数字协作平台</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* 首页特定样式 */
+        .hero-section {
+            background: linear-gradient(135deg, #f5f7ff 0%, #e8f0ff 100%);
+            padding: 6rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #3370ff 0%, #4e81fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--light-text);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .hero-image {
+            max-width: 100%;
+            box-shadow: var(--shadow);
+            border-radius: 12px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(51, 112, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-description {
+            color: var(--light-text);
+        }
+        
+        .clients-section {
+            background-color: var(--light-bg);
+            padding: 5rem 0;
+        }
+        
+        .client-logos {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .client-logo {
+            height: 40px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .client-logo:hover {
+            opacity: 1;
+        }
+        
+        .advantage-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .advantage-item {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .advantage-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .advantage-text {
+            font-size: 1.25rem;
+            color: var(--light-text);
+        }
+        
+        .cta-section {
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-subtitle {
+            font-size: 1.25rem;
+            color: var(--light-text);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div id="navbar-container"></div>
+    
+    <!-- 英雄区域 -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="hero-content">
+                    <h1 class="hero-title">您的数字中心<br>简化业务运营</h1>
+                    <p class="hero-subtitle">在一个平台上集中沟通、项目管理、数字工作流、分析等，简化企业运营流程，提升效率。</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-play-circle mr-2"></i>
+                            观看演示
+                        </a>
+                        <a href="#" class="btn btn-secondary">
+                            <i class="fas fa-rocket mr-2"></i>
+                            免费开始
+                        </a>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="flex -space-x-2">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=120&h=120&q=80" class="w-8 h-8 rounded-full border-2 border-white" alt="User">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=120&h=120&q=80" class="w-8 h-8 rounded-full border-2 border-white" alt="User">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=120&h=120&q=80" class="w-8 h-8 rounded-full border-2 border-white" alt="User">
+                        </div>
+                        <span class="text-sm text-gray-600">已有超过 5000+ 企业选择 Lark</span>
+                    </div>
+                </div>
+                <div>
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Team Collaboration" class="hero-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 优势展示 -->
+    <section class="section bg-white">
+        <div class="container">
+            <div class="text-center mb-12">
+                <h2 class="section-title">为什么选择 Lark？</h2>
+                <p class="section-subtitle">Lark 结合了沟通、协作和业务流程工具，构建了一个更高效的数字工作环境</p>
+            </div>
+            
+            <div class="advantage-container">
+                <div class="advantage-item">
+                    <div class="advantage-number">70%</div>
+                    <div class="advantage-text">节省企业协作成本</div>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-number">3x</div>
+                    <div class="advantage-text">提升团队工作效率</div>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-number">24/7</div>
+                    <div class="advantage-text">全天候企业级安全保障</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功能展示 -->
+    <section class="section">
+        <div class="container">
+            <div class="text-center mb-12">
+                <h2 class="section-title">一站式企业协作平台</h2>
+                <p class="section-subtitle">Lark 提供全面的企业协作工具，从沟通到项目管理，从文档协作到数据分析，一应俱全</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="feature-title">即时沟通</h3>
+                    <p class="feature-description">多语言实时翻译、群聊、私聊、视频会议，无缝沟通，打破语言与地域限制。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 class="feature-title">文档协作</h3>
+                    <p class="feature-description">实时协作编辑文档，支持富文本、表格、画板，实现团队知识的共建与共享。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3 class="feature-title">项目管理</h3>
+                    <p class="feature-description">可视化任务板、甘特图、进度追踪，让项目管理更简单高效。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="feature-title">智能日历</h3>
+                    <p class="feature-description">跨时区会议安排、自动提醒、与会议无缝整合，优化时间管理。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="feature-title">Base 数据库</h3>
+                    <p class="feature-description">可视化数据管理，自定义表单，实现业务数据的收集、管理与分析。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="feature-title">工作流自动化</h3>
+                    <p class="feature-description">自定义流程自动化，减少重复性工作，提升团队效率。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 客户展示 -->
+    <section class="clients-section">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">受到全球企业的信赖</h2>
+                <p class="section-subtitle">全球数千家企业已经体验到 Lark 带来的协作效率提升</p>
+            </div>
+            
+            <div class="client-logos">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2560px-Google_2015_logo.svg.png" alt="Google" class="client-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/2560px-Amazon_logo.svg.png" alt="Amazon" class="client-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png" alt="Netflix" class="client-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/488px-Apple_logo_black.svg.png" alt="Apple" class="client-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/2048px-Microsoft_logo.svg.png" alt="Microsoft" class="client-logo">
+            </div>
+            
+            <div class="bg-white rounded-lg p-8 shadow-lg mt-12">
+                <div class="flex items-start gap-6">
+                    <div class="text-4xl text-primary-500">
+                        <i class="fas fa-quote-left text-blue-500 opacity-50"></i>
+                    </div>
+                    <div>
+                        <p class="text-xl mb-4">Lark 帮助我们连接了全球 15 个国家的团队，实现了无缝协作，提高了 35% 的沟通效率，大大加快了我们的产品开发和上市速度。</p>
+                        <div class="flex items-center gap-4">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="John Smith" class="w-12 h-12 rounded-full">
+                            <div>
+                                <div class="font-semibold">张明</div>
+                                <div class="text-sm text-gray-600">技术总监，全球科技公司</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 行动召唤 -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">准备好提升您的团队协作了吗？</h2>
+            <p class="cta-subtitle">立即开始使用 Lark，体验一站式企业协作平台带来的效率提升。免费试用，无需信用卡。</p>
+            <div class="flex justify-center gap-4">
+                <a href="#" class="btn btn-primary">
+                    <i class="fas fa-rocket mr-2"></i>
+                    免费开始
+                </a>
+                <a href="#" class="btn btn-secondary">
+                    <i class="fas fa-headset mr-2"></i>
+                    联系销售
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <div id="footer-container"></div>
+
+    <script>
+        // 加载导航栏和页脚
+        fetch('components/navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+            });
+            
+        fetch('components/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            });
+    </script>
+</body>
+</html> 

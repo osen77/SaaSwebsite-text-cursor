@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lark 定价方案 - 企业级数字协作平台</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* 定价页特定样式 */
+        .pricing-header {
+            background: linear-gradient(135deg, #f0f6ff 0%, #e6f0ff 100%);
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .pricing-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+        
+        .pricing-subtitle {
+            font-size: 1.25rem;
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .pricing-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+        
+        .toggle-label {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--light-text);
+        }
+        
+        .toggle-btn {
+            width: 50px;
+            height: 26px;
+            border-radius: 13px;
+            background-color: var(--primary-color);
+            margin: 0 1rem;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .toggle-btn:before {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background-color: white;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-btn.active:before {
+            left: 26px;
+        }
+        
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .pricing-card {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card.popular {
+            box-shadow: 0 8px 30px rgba(51, 112, 255, 0.2);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .pricing-card.popular:before {
+            content: '最受欢迎';
+            position: absolute;
+            top: 12px;
+            right: -32px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.25rem 2rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transform: rotate(45deg);
+            width: 120px;
+            text-align: center;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .pricing-plan {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        
+        .pricing-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .pricing-period {
+            font-size: 1rem;
+            color: var(--light-text);
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-features {
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+        
+        .pricing-feature {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            gap: 0.75rem;
+        }
+        
+        .feature-icon {
+            color: var(--primary-color);
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 0.25rem;
+        }
+        
+        .feature-text {
+            font-size: 0.875rem;
+            color: var(--light-text);
+        }
+        
+        .pricing-divider {
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 2rem 0;
+        }
+        
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 4rem;
+        }
+        
+        .compare-table th,
+        .compare-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .compare-table th {
+            font-weight: 600;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+        
+        .compare-table th:first-child,
+        .compare-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+        }
+        
+        .compare-feature {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .compare-feature-name {
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .faq-section {
+            margin-top: 5rem;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 0;
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .faq-answer {
+            margin-top: 1rem;
+            color: var(--light-text);
+            display: none;
+        }
+        
+        .faq-answer.active {
+            display: block;
+        }
+        /* 行动召唤部分样式 */
+        .cta-section {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e0eaff 100%);
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+        
+        .cta-subtitle {
+            font-size: 1.25rem;
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div id="navbar-container"></div>
+    
+    <!-- 定价页头部 -->
+    <section class="pricing-header">
+        <div class="container">
+            <h1 class="pricing-title">简单透明的定价方案</h1>
+            <p class="pricing-subtitle">选择适合您企业规模和需求的计划，随时可以升级或降级</p>
+            
+            <div class="pricing-toggle">
+                <span class="toggle-label">按月付费</span>
+                <div class="toggle-btn">
+                    <span class="sr-only">切换年付月付</span>
+                </div>
+                <span class="toggle-label">按年付费（节省 20%）</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 定价卡片 -->
+    <section class="section">
+        <div class="container">
+            <div class="pricing-cards">
+                <!-- 免费方案 -->
+                <div class="pricing-card">
+                    <h3 class="pricing-plan">免费版</h3>
+                    <div class="pricing-amount">¥0</div>
+                    <div class="pricing-period">永久免费</div>
+                    
+                    <div class="pricing-features">
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">最多 10 名用户</span>
+                        </div>
+                        
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">基础消息与音视频通话</span>
+                        </div>
+                        
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">文档协作（10GB 存储空间）</span>
+                        </div>
+                        
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">日历与待办事项</span>
+                        </div>
+                        
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">基础项目管理</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="btn btn-secondary">注册免费账户</a>
+                </div>
+                
+                <!-- 团队方案 -->
+                <div class="pricing-card popular">
+                    <h3 class="pricing-plan">专业版</h3>
+                    <div class="pricing-amount monthly">¥45</div>
+                    <div class="pricing-amount yearly" style="display: none;">¥36</div>
+                    <div class="pricing-period">每用户/月</div>
+                    
+                    <div class="pricing-features">
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">无限用户</span>
+                        </div>
+                        
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">高级消息功能 (消息翻译、消息撤回)</span>
+                        </div>
+                        
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">高清视频会议（最多 100 人，无时长限制）</span>
+                        </div>
+                        
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">高级文档功能（100GB 存储空间/用户）</span>
+                        </div>
+                        
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">高级项目与任务管理</span>
+                        </div>
+                        
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">Base 数据库完整功能</span>
+                        </div>
+                        
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">工作流自动化</span>
+                        </div>
+                        
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">5 个管理员账户</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="btn btn-primary">开始 14 天免费试用</a>
+                </div>
+                
+                <!-- 企业方案 -->
+                <div class="pricing-card">
+                    <h3 class="pricing-plan">企业版</h3>
+                    <div class="pricing-amount">¥115</div>
+                    <div class="pricing-period">每用户/月</div>
+                    
+                    <div class="pricing-features">
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">专业版的所有功能</span>
+                        </div>
+                        
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">高级安全控制和合规功能</span>
+                        </div>
+                        
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">SAML 单点登录</span>
+                        </div>
+                        
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">数据保留和信息风控策略</span>
+                        </div>
+                        
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">企业 API 和高级集成</span>
+                        </div>
+                        
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">专属客户成功经理</span>
+                        </div>
+                        
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">7x24 全天候高级支持</span>
+                        </div>
+                        
+                        <div class="pricing-feature">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">500GB 存储空间/用户</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="btn btn-secondary">联系销售团队</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 功能对比表 -->
+    <section class="section bg-light-bg">
+        <div class="container">
+            <div class="text-center mb-12">
+                <h2 class="section-title">详细功能对比</h2>
+                <p class="section-subtitle">查看各个方案之间的详细功能差异，选择最适合您企业的方案</p>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th>功能</th>
+                            <th>免费版</th>
+                            <th>专业版</th>
+                            <th>企业版</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>用户数量</td>
+                            <td>最多 10 名</td>
+                            <td>无限</td>
+                            <td>无限</td>
+                        </tr>
+                        <tr>
+                            <td>存储空间</td>
+                            <td>10GB 总共</td>
+                            <td>100GB/用户</td>
+                            <td>500GB/用户</td>
+                        </tr>
+                        <tr>
+                            <td>消息历史</td>
+                            <td>最近 3 个月</td>
+                            <td>无限</td>
+                            <td>无限</td>
+                        </tr>
+                        <tr>
+                            <td>视频会议参与人数</td>
+                            <td>最多 10 人</td>
+                            <td>最多 100 人</td>
+                            <td>最多 500 人</td>
+                        </tr>
+                        <tr>
+                            <td>视频会议时长</td>
+                            <td>40 分钟/会议</td>
+                            <td>无限</td>
+                            <td>无限</td>
+                        </tr>
+                        <tr>
+                            <td>消息翻译</td>
+                            <td><i class="fas fa-times text-red-500"></i></td>
+                            <td><i class="fas fa-check text-green-500"></i></td>
+                            <td><i class="fas fa-check text-green-500"></i></td>
+                        </tr>
+                        <tr>
+                            <td>工作流自动化</td>
+                            <td><i class="fas fa-times text-red-500"></i></td>
+                            <td><i class="fas fa-check text-green-500"></i></td>
+                            <td><i class="fas fa-check text-green-500"></i></td>
+                        </tr>
+                        <tr>
+                            <td>单点登录 (SSO)</td>
+                            <td><i class="fas fa-times text-red-500"></i></td>
+                            <td><i class="fas fa-times text-red-500"></i></td>
+                            <td><i class="fas fa-check text-green-500"></i></td>
+                        </tr>
+                        <tr>
+                            <td>数据保留策略</td>
+                            <td><i class="fas fa-times text-red-500"></i></td>
+                            <td><i class="fas fa-times text-red-500"></i></td>
+                            <td><i class="fas fa-check text-green-500"></i></td>
+                        </tr>
+                        <tr>
+                            <td>专属客户经理</td>
+                            <td><i class="fas fa-times text-red-500"></i></td>
+                            <td><i class="fas fa-times text-red-500"></i></td>
+                            <td><i class="fas fa-check text-green-500"></i></td>
+                        </tr>
+                        <tr>
+                            <td>支持响应时间</td>
+                            <td>48 小时内</td>
+                            <td>24 小时内</td>
+                            <td>4 小时内</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 常见问题 -->
+    <section class="section">
+        <div class="container">
+            <div class="text-center mb-12">
+                <h2 class="section-title">常见问题</h2>
+                <p class="section-subtitle">关于我们定价和功能的常见问题解答</p>
+            </div>
+            
+            <div class="faq-section">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>我可以随时升级或降级我的方案吗？</span>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>是的，您可以随时升级或降级您的方案。升级时，我们将按比例计算剩余订阅期的费用差额。如果您降级方案，新的价格将在下一个计费周期生效。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>免费试用期后会自动扣费吗？</span>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>不会。14 天免费试用期结束后，您需要主动选择付费方案才会开始计费。我们不会自动从您的账户扣费。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>我们团队规模变化时如何调整付费？</span>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>我们采用灵活的按用户付费模式。当您添加新用户时，系统会自动按比例计算新用户的费用。当您移除用户时，下一个计费周期将自动调整。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Lark 支持哪些支付方式？</span>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>我们支持信用卡、微信支付、支付宝以及企业银行转账付款。企业版客户可以联系我们的销售团队了解更多付款选项。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>我需要为所有团队成员购买许可证吗？</span>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>是的，为了确保最佳的协作体验，我们要求为所有活跃用户购买许可证。这样可以确保团队中的每个人都能充分利用 Lark 的所有功能。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 行动召唤 -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">准备好开始使用 Lark 了吗？</h2>
+            <p class="cta-subtitle">立即开始 14 天免费试用，无需信用卡，体验 Lark 提供的所有专业版功能。</p>
+            <div class="flex justify-center gap-4">
+                <a href="#" class="btn btn-primary">
+                    <i class="fas fa-rocket mr-2"></i>
+                    免费试用专业版
+                </a>
+                <a href="#" class="btn btn-secondary">
+                    <i class="fas fa-headset mr-2"></i>
+                    联系销售团队
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <div id="footer-container"></div>
+
+    <script>
+        // 加载导航栏和页脚
+        fetch('components/navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+            });
+            
+        fetch('components/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            });
+            
+        // 计费周期切换
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleBtn = document.querySelector('.toggle-btn');
+            const monthlyPrices = document.querySelectorAll('.pricing-amount.monthly');
+            const yearlyPrices = document.querySelectorAll('.pricing-amount.yearly');
+            
+            toggleBtn.addEventListener('click', function() {
+                this.classList.toggle('active');
+                
+                if (this.classList.contains('active')) {
+                    // 显示年付价格
+                    monthlyPrices.forEach(price => price.style.display = 'none');
+                    yearlyPrices.forEach(price => price.style.display = 'block');
+                } else {
+                    // 显示月付价格
+                    monthlyPrices.forEach(price => price.style.display = 'block');
+                    yearlyPrices.forEach(price => price.style.display = 'none');
+                }
+            });
+            
+            // FAQ 切换
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const icon = this.querySelector('i');
+                    
+                    answer.classList.toggle('active');
+                    
+                    if (answer.classList.contains('active')) {
+                        icon.classList.replace('fa-plus', 'fa-minus');
+                    } else {
+                        icon.classList.replace('fa-minus', 'fa-plus');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
